@@ -1,0 +1,39 @@
+<style>
+  button {
+  padding: 5px;
+  margin: 10px;
+  width: 150px;
+  background-color:aquamarine;
+  border-color: aquamarine;
+  border-radius: 5px;
+}
+</style>
+
+<h1> {{ name() }}</h1>
+
+<dl>
+  <td>Nombre:</td>
+  <dd>{{ name() }}</dd>
+
+  <td>Edad:</td>
+  <dd>{{ age() }}</dd>
+
+  <td>Metodo:</td>
+  <dd>{{ heroDesciption() }}</dd>
+
+  <td>Capitalizado:</td>
+  <!-- <dd>{{ capitalizedName() }}</dd> -->
+  <dd>{{ name() | uppercase }}</dd>
+</dl>
+
+<button class="btn btn-primary mx-2" (click)="changeHero()">
+  Cambiar nombre
+</button>
+
+<button (click)="changeAge()" class="btn btn-primary mx-2">
+  Cambiar edad
+</button>
+
+<button (click)="resetForm()" class="btn btn-primary mx-2">
+  Reset
+</button>
