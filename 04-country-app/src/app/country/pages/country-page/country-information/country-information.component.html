@@ -1,0 +1,33 @@
+<section class="stats shadow flex mb-6 max-w-4xl mx-auto">
+  <div class="stat place-items-center py-4">
+    <div class="stat-title">Población</div>
+    <div class="stat-value">{{ country().population | number }}</div>
+    <div class="stat-desc">Fecha {{ currentYear() }}</div>
+  </div>
+
+  <div class="stat place-items-center py-4">
+    <div class="stat-title">Nombre</div>
+    <div class="stat-value text-secondary">{{ country().name }}</div>
+    <div class="stat-desc text-secondary">{{ country().capital }}</div>
+  </div>
+
+  <div class="stat place-items-center py-4">
+    <div class="stat-title">Region</div>
+    <div class="stat-value">{{ country().region }}</div>
+    <div class="stat-desc">{{ country().subRegion }}</div>
+  </div>
+</section>
+
+<section class="diff aspect-[16/9] max-w-5xl mx-auto" tabindex="0">
+  <div class="diff-item-1" role="img" tabindex="0">
+    <img [alt]="country().name" [src]="country().flagSVG" />
+  </div>
+  <div class="diff-item-2" role="img">
+    <img
+      [alt]="country().name"
+      class="blur"
+      [src]="country().flagSVG" />
+    </div>
+   <div class="diff-resizer"></div>
+</section>
+
