@@ -1,9 +1,10 @@
-import { Component, inject, resource, signal } from '@angular/core';
+import { Component, inject, linkedSignal, resource, signal } from '@angular/core';
 import { firstValueFrom, of } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { SearchInputComponent } from "../../components/search-input/search-input.component";
 import { ListComponent } from "../../components/list/list.component";
 import { CountryService } from '../../services/country.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'country-by-capital-page',
@@ -13,31 +14,40 @@ import { CountryService } from '../../services/country.service';
 export class ByCapitalPageComponent {
 
   countryService = inject(CountryService);
-  query = signal('')
 
-  // # rxResource
-  // countryResource = rxResource({
-  //   request: () =>  ({ query: this.query() }),
-  //   loader: ({ request }: {request: { query: string }}) => {
-  //     if (!request.query) return of([]);
+  activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
 
-  //     return this.countryService.searchByCapital(request.query);
-  //   }
-  // });
+  queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? '';
+  query = linkedSignal(() => this.queryParam);
+
+
+  // # rxResource()
+  countryResource = rxResource({
+    request: () =>  ({ query: this.query() }),
+    stream: ({ params }: {params: { query: string }}) => {
+      if (!params.query) return of([]);
+      this.router.navigate(['/country/by-capital'], {
+        queryParams: {
+          query: params.query
+        }
+      })
+      return this.countryService.searchByCapital(params.query);
+    }
+  });
 
 
   // # Usar resource() -> menos codigo y mas limpio
   // # Trabaja con promesas en vez de observables
-  countryResource = resource({
-    request: () => ({ query: this.query() }),
-    loader: async({ params }) => {
-      if( !params.query ) return [];
-
-      return await firstValueFrom(
-        this.countryService.searchByCapital(params.query)
-      );
-    },
-  });
+  // countryResource = resource({
+  //   request: () => ({ query: this.query() }),
+  //   loader: async({ params }) => {
+  //     if( !params.query ) return [];
+  //     return await firstValueFrom(
+  //       this.countryService.searchByCapital(params.query)
+  //     );
+  //   },
+  // });
 
   // # Forma tradicional mas larga de hacer la peticion
   // -->
@@ -64,7 +74,4 @@ export class ByCapitalPageComponent {
   //       }
   //     })
   // }
-
-
-
 }
