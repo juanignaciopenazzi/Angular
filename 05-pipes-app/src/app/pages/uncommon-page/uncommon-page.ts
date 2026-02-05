@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
-import { Card } from "../../components/card/card";
 import { AsyncPipe, I18nPluralPipe, I18nSelectPipe, JsonPipe, KeyValuePipe, SlicePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { interval, map, tap } from 'rxjs';
+import { Card } from "@components/card/card";
 
 const client1 = {
   name: 'Fernando',
