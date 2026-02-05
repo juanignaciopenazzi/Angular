@@ -1,6 +1,6 @@
 import { DatePipe, LowerCasePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, inject, LOCALE_ID, signal } from '@angular/core';
-import { AvailableLocale, LocaleService } from '../../services/locale.service';
+import {  Component, effect, inject, LOCALE_ID, signal } from '@angular/core';
+import { AvailableLocale, LocaleService } from '@services/locale.service';
 
 @Component({
   selector: 'app-basic-page',
