@@ -8,7 +8,6 @@ import { FormUtils } from '../../../utils/form-utils';
   templateUrl: './form-error.html',
 })
 export class FormError {
-
   formUtils = FormUtils;
 
   form = input.required<FormGroup>();
